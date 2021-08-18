@@ -1,38 +1,35 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <queue>
 using namespace std;
-vector<int> arr;
+priority_queue<int>  pq;
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
+	cout.tie(0);
 	int N;
 	cin >> N;
 	int result=0; 
 	if (N == 1) { cout << 0; exit(0); }//¿¹¿ÜÃ³¸® 
-	arr.push_back(N);
-	while (arr.size() != 0) {
-		for (int i = 0; i < arr.size(); i++) {
-			if (arr[i] < 2) { arr.erase(arr.begin() + i); continue; }
-			if (arr[i] % 2 == 0) { //Â¦¼öÀÌ¸é 
-				int mid = arr[i] / 2;
-				result += mid * mid;
-				arr.erase(arr.begin() + i);
-				arr.push_back(mid);
-				arr.push_back(mid);
-			}
-
-			else {  //È¦¼öÀÌ¸é
-				int first = arr[i] / 2;
-				int second = arr[i] / 2 + 1;
-				result += first * second;
-				arr.erase(arr.begin() + i);
-				arr.push_back(first);
-				arr.push_back(second);
-			}
-
+	pq.push(N);
+	while (pq.top()!=1){
+		int x = pq.top();
+		if (x % 2 == 0) { //Â¦¼öÀÌ¸é 
+			int mid = x / 2;
+			result += mid * mid;
+			pq.pop();
+			pq.push(mid);
+			pq.push(mid);
+		}
+		else {  //È¦¼öÀÌ¸é
+			int first = x / 2;
+			int second = x / 2 + 1;
+			result += first * second;
+			pq.pop();
+			pq.push(first);
+			pq.push(second);
 		}
 	}
-	
 	cout << result;
 }
