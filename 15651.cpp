@@ -26,7 +26,6 @@ void dfs(int cnt) {
             visited[i] = false;
         
     }
-
 }
 int main() {
     ios_base::sync_with_stdio(false);
